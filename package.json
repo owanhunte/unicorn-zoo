@@ -1,0 +1,36 @@
+{
+  "name": "unicorn-zoo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "pages/index.tsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "next -p $PORT",
+    "build": "next build",
+    "start": "next start -p $PORT",
+    "build:style": "tailwind build src/vendor/tailwindcss/vendor.css -o public/css/tailwind.css"
+  },
+  "author": "Owan Hunte <owanh@hotmail.com>",
+  "private": true,
+  "license": "ISC",
+  "engines": {
+    "node": ">= 12.0.0",
+    "npm": ">= 6.0.0",
+    "yarn": ">= 1.17.3"
+  },
+  "dependencies": {
+    "@pwabuilder/pwaauth": "^0.9.7",
+    "@types/classnames": "^2.2.10",
+    "classnames": "^2.2.6",
+    "next": "^9.4.4",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "tailwindcss": "^1.4.6",
+    "wc-react": "^0.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.13",
+    "@types/react": "^16.9.36",
+    "typescript": "^3.9.5"
+  }
+}
