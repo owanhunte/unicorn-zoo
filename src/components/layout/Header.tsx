@@ -26,7 +26,7 @@ const Header: React.FunctionComponent = () => {
   };
 
   return (
-    <header className="bg-white text-gray-900 text-center shadow-sm">
+    <header className="bg-indigo-700 text-gray-900 text-center w-full">
       <div className="flex items-center justify-between mx-auto py-3 w-11/12 lg:max-w-screen-xl">
         <div className="flex items-center">
           <Link href="/">
@@ -36,7 +36,9 @@ const Header: React.FunctionComponent = () => {
           </Link>
           <h1 className="font-normal text-2xl m-0">
             <Link href="/">
-              <a>{process.env.NEXT_PUBLIC_APP_NAME}</a>
+              <a className="text-gray-200 hover:text-white">
+                {process.env.NEXT_PUBLIC_APP_NAME}
+              </a>
             </Link>
           </h1>
         </div>
