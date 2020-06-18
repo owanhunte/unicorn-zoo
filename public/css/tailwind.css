@@ -623,6 +623,7 @@ a {
   --text-opacity: 1;
   color: #3182ce;
   color: rgba(49, 130, 206, var(--text-opacity));
+  transition: all 0.6s ease 0s;
 }
 
 a:hover {
