@@ -26,12 +26,14 @@ const PwaAuthComponent: ComponentType<PwaAuthProps> = dynamic(
 type Props = {
   title?: string;
   description?: string;
+  isGuestPage?: boolean;
   children: React.ReactElement | React.ReactElement[];
 };
 
 const Layout: React.FunctionComponent<Props> = ({
   title,
   description,
+  isGuestPage,
   children,
 }) => {
   // If no title was passed as a prop, set a default one.
@@ -81,7 +83,7 @@ const Layout: React.FunctionComponent<Props> = ({
       <div className="flex flex-col min-h-screen relative w-full">
         <Header />
         <main className="flex-1 text-center">
-          {user ? (
+          {user || isGuestPage ? (
             children
           ) : (
             <React.Fragment>
