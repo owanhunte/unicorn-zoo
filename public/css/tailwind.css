@@ -638,6 +638,20 @@ a:focus {
   color: rgba(43, 108, 176, var(--text-opacity));
 }
 
+.w-9 {
+  width: 2.2rem;
+}
+
+.h-9 {
+  height: 2.2rem;
+}
+
+.Toastify__toast-body {
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
 .space-y-0 > :not(template) ~ :not(template) {
   --space-y-reverse: 0;
   margin-top: calc(0px * calc(1 - var(--space-y-reverse)));

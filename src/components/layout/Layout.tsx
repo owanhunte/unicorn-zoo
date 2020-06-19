@@ -2,10 +2,16 @@ import React, { ComponentType } from "react";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import { useRecoilState } from "recoil";
+import { ToastContainer, Slide } from "react-toastify";
 import { SignInResult } from "@pwabuilder/pwaauth/build/signin-result";
-import { userState } from "@/store/*";
+import {
+  userState,
+  handleSignInCompleted,
+  loginInProcess,
+} from "@/store/index";
 import Header from "./Header";
 import Footer from "./Footer";
+import Loading from "../Loading";
 
 /*
  * We want to use the pwa-auth web component strictly as a client side React component
@@ -42,9 +48,14 @@ const Layout: React.FunctionComponent<Props> = ({
   const pageDescription = description ?? process.env.NEXT_PUBLIC_APP_DESC;
 
   const [user, setUser] = useRecoilState(userState);
+  const [isAuthenticating, setIsAuthenticating] = useRecoilState(
+    loginInProcess
+  );
 
-  const handleLogin = (result: CustomEvent<SignInResult>) => {
-    console.log("Details:", result);
+  const handleLogin = async (result: CustomEvent<SignInResult>) => {
+    setIsAuthenticating(true);
+    await handleSignInCompleted((result as unknown) as SignInResult, setUser);
+    setIsAuthenticating(false);
   };
 
   return (
@@ -92,8 +103,23 @@ const Layout: React.FunctionComponent<Props> = ({
                   className="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 text-left leading-loose text-sm"
                   role="alert"
                 >
-                  <p className="font-bold">Authentication Required</p>
-                  <p>Log in with your Google account to demo this web app.</p>
+                  {isAuthenticating ? (
+                    <React.Fragment>
+                      <p className="font-semibold">
+                        Attempting to log you in to Unicorn Zoo, please wait.
+                      </p>
+                      <div className="flex items-center justify-center w-full">
+                        <Loading />
+                      </div>
+                    </React.Fragment>
+                  ) : (
+                    <React.Fragment>
+                      <p className="font-semibold">Authentication Required</p>
+                      <p>
+                        Log in with your Google account to demo this web app.
+                      </p>
+                    </React.Fragment>
+                  )}
                 </div>
 
                 <div className="mt-5 border bg-white py-2 rounded-md">
@@ -109,6 +135,7 @@ const Layout: React.FunctionComponent<Props> = ({
           )}
         </main>
         <Footer />
+        <ToastContainer newestOnTop autoClose={2500} transition={Slide} />
       </div>
     </React.Fragment>
   );

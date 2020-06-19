@@ -1,6 +1,7 @@
 import { SignInResult } from "@pwabuilder/pwaauth/build/signin-result";
 
 export type UserCache = {
+  _id?: string;
   data: SignInResult;
 };
 

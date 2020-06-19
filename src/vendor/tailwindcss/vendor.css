@@ -14,4 +14,18 @@ a:focus {
   @apply text-blue-700;
 }
 
+.w-9 {
+  width: 2.2rem;
+}
+
+.h-9 {
+  height: 2.2rem;
+}
+
+.Toastify__toast-body {
+  font-family: inherit;
+  @apply text-sm;
+  @apply font-semibold;
+}
+
 @tailwind utilities;

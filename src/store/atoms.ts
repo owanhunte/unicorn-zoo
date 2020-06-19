@@ -1,7 +1,12 @@
 import { atom } from "recoil";
-import { SignInResult } from "@pwabuilder/pwaauth/build/signin-result";
+import { UserCache } from "@/utils/types";
 
-export const userState = atom<SignInResult | null | undefined>({
-  key: "authUser",
+export const userState = atom<UserCache | null | undefined>({
+  key: "userState",
   default: undefined
+});
+
+export const loginInProcess = atom<boolean>({
+  key: "loginInProcess",
+  default: false
 });
