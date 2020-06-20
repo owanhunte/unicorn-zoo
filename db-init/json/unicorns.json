@@ -1,0 +1,86 @@
+[
+  {
+    "_id": { "$oid": "5eed771314cb674aa29a1767" },
+    "name": "Mandrake",
+    "colour": "orange",
+    "favFood": "Apple Pie",
+    "location": "5eecfc2514cb674aa29a1761"
+  },
+  {
+    "_id": { "$oid": "5eed78b814cb674aa29a1768" },
+    "name": "Moonstar",
+    "colour": "blue",
+    "favFood": "Oreos",
+    "location": "5eecfc2514cb674aa29a1761"
+  },
+  {
+    "_id": { "$oid": "5eed792e14cb674aa29a1769" },
+    "name": "Tina",
+    "colour": "silver",
+    "favFood": "Marshmallows",
+    "location": "5eecfc2514cb674aa29a1761"
+  },
+  {
+    "_id": { "$oid": "5eed7d5080fcd4c89ddd503d" },
+    "name": "Valentine",
+    "colour": "black",
+    "favFood": "Chocolate Cake",
+    "location": "5eecfc2514cb674aa29a1761"
+  },
+  {
+    "_id": { "$oid": "5eed7da180fcd4c89ddd503e" },
+    "name": "Elvis",
+    "colour": "white",
+    "favFood": "Apples",
+    "location": "5eecfc2514cb674aa29a1761"
+  },
+  {
+    "_id": { "$oid": "5eed7e0080fcd4c89ddd503f" },
+    "name": "Nightcrawler",
+    "colour": "dark gray",
+    "favFood": "Fish",
+    "location": "5eecfc2514cb674aa29a1761"
+  },
+  {
+    "_id": { "$oid": "5eed7e6780fcd4c89ddd5040" },
+    "name": "Black Widow",
+    "colour": "dark blue",
+    "favFood": "Pancakes",
+    "location": "5eecfc2514cb674aa29a1761"
+  },
+  {
+    "_id": { "$oid": "5eed7eb180fcd4c89ddd5041" },
+    "name": "Rooster",
+    "colour": "red",
+    "favFood": "Avacado",
+    "location": "5eecfc2514cb674aa29a1761"
+  },
+  {
+    "_id": { "$oid": "5eed7efe80fcd4c89ddd5042" },
+    "name": "Abbot",
+    "colour": "sky blue",
+    "favFood": "Magnum Ice-cream",
+    "location": "5eecfc2514cb674aa29a1761"
+  },
+  {
+    "_id": { "$oid": "5eed7f4380fcd4c89ddd5043" },
+    "name": "Rainbow",
+    "colour": "yellow",
+    "favFood": "Honey Nut Cheerios",
+    "location": "5eecfc2514cb674aa29a1761"
+  },
+  {
+    "_id": { "$oid": "5eed7f9980fcd4c89ddd5044" },
+    "name": "Skyline",
+    "colour": "green",
+    "favFood": "Grapefruit",
+    "location": "5eecfc2514cb674aa29a1761"
+  },
+  {
+    "_id": { "$oid": "5eed803180fcd4c89ddd5045" },
+    "name": "Susan",
+    "colour": "peach",
+    "favFood": "Fruit Salad",
+    "location": "5eecfc2514cb674aa29a1761"
+  }
+]

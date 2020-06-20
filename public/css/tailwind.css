@@ -652,6 +652,56 @@ a:focus {
   font-weight: 600;
 }
 
+.nice-select {
+  display: block;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  width: 100%;
+  margin-bottom: 1rem;
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  border-width: 1px;
+  --border-opacity: 1;
+  border-color: #cbd5e0;
+  border-color: rgba(203, 213, 224, var(--border-opacity));
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-right: 2rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  line-height: 1.25;
+}
+
+.nice-select:hover {
+  --border-opacity: 1;
+  border-color: #a0aec0;
+  border-color: rgba(160, 174, 192, var(--border-opacity));
+}
+
+.nice-select:focus {
+  outline: 0;
+}
+
+.nice-select-arrow {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  --text-opacity: 1;
+  color: #4a5568;
+  color: rgba(74, 85, 104, var(--text-opacity));
+}
+
 .space-y-0 > :not(template) ~ :not(template) {
   --space-y-reverse: 0;
   margin-top: calc(0px * calc(1 - var(--space-y-reverse)));
@@ -17909,6 +17959,14 @@ a:focus {
 
 .delay-1000 {
   transition-delay: 1000ms;
+}
+
+.w-45p {
+  width: 45%;
+}
+
+.w-48p {
+  width: 48%;
 }
 
 @media (min-width: 640px) {
@@ -35169,6 +35227,14 @@ a:focus {
 
   .sm\:delay-1000 {
     transition-delay: 1000ms;
+  }
+
+  .sm\:w-45p {
+    width: 45%;
+  }
+
+  .sm\:w-48p {
+    width: 48%;
   }
 }
 
@@ -52431,6 +52497,14 @@ a:focus {
   .md\:delay-1000 {
     transition-delay: 1000ms;
   }
+
+  .md\:w-45p {
+    width: 45%;
+  }
+
+  .md\:w-48p {
+    width: 48%;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -69692,6 +69766,14 @@ a:focus {
   .lg\:delay-1000 {
     transition-delay: 1000ms;
   }
+
+  .lg\:w-45p {
+    width: 45%;
+  }
+
+  .lg\:w-48p {
+    width: 48%;
+  }
 }
 
 @media (min-width: 1280px) {
@@ -86952,5 +87034,13 @@ a:focus {
 
   .xl\:delay-1000 {
     transition-delay: 1000ms;
+  }
+
+  .xl\:w-45p {
+    width: 45%;
+  }
+
+  .xl\:w-48p {
+    width: 48%;
   }
 }

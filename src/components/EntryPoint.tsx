@@ -1,14 +1,19 @@
 import React, { useEffect } from "react";
 import { AppProps } from "next/app";
+import { ObjectId } from "mongodb";
 import localForage from "localforage";
 import { useRecoilState } from "recoil";
 import Loading from "./Loading";
-import { UserCache } from "@/utils/types";
+import { UserCache, UnicornHashTable, LocationHashTable } from "@/utils/types";
 import { isOnlyObject } from "@/utils/fns";
-import { userState } from "@/store/index";
+import { userState, unicornHashTbl, locationHashTbl } from "@/store/index";
+import { getUnicorns } from "@/utils/data-fetchers/unicorns";
+import { getLocations } from "@/utils/data-fetchers/locations";
 
 export default function EntryPoint({ Component, pageProps }: AppProps) {
   const [user, setUser] = useRecoilState(userState);
+  const [, setLocationsData] = useRecoilState(locationHashTbl);
+  const [, setUnicornsData] = useRecoilState(unicornHashTbl);
 
   useEffect(() => {
     (async () => {
@@ -34,7 +39,38 @@ export default function EntryPoint({ Component, pageProps }: AppProps) {
         } else {
           setUser(null);
         }
+
+        // Load the locations and unicorns.
+        const p = await Promise.all([getLocations(), getUnicorns()]);
+
+        const locations = p[0].reduce(
+          (accumulator: LocationHashTable, current) => {
+            accumulator[current._id] = {
+              ...current,
+              _id: current._id,
+              unicornList: [],
+            };
+            return accumulator;
+          },
+          {}
+        );
+
+        const unicorns = p[1].reduce(
+          (accumulator: UnicornHashTable, current) => {
+            accumulator[current._id] = {
+              ...current,
+              _id: current._id,
+            };
+            locations[current.location].unicornList.push(current._id);
+            return accumulator;
+          },
+          {}
+        );
+
+        setUnicornsData({ ...unicorns });
+        setLocationsData({ ...locations });
       } catch (error) {
+        console.log("Error:", error);
         setUser(null);
       }
     })();

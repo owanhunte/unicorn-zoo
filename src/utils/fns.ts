@@ -17,3 +17,21 @@ export const pwaAuthErrorToStr = (errorId: string) => {
 
   return s;
 }
+
+export const getApiEndpoint = (which: string) => {
+  let endpoint = "";
+
+  switch (which) {
+    case "allLocations":
+      endpoint = "/api/locations";
+      break;
+    case "allUnicorns":
+      endpoint = "/api/unicorns";
+      break;
+    case "persistUser":
+      endpoint = "/api/users/persist";
+      break;
+  }
+
+  return endpoint;
+}

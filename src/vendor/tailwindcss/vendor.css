@@ -28,4 +28,30 @@ a:focus {
   @apply font-semibold;
 }
 
+.nice-select {
+  @apply block appearance-none w-full mb-4 bg-white border border-gray-400 px-4 py-2 pr-8 rounded text-sm shadow leading-tight;
+}
+
+.nice-select:hover {
+  @apply border-gray-500;
+}
+
+.nice-select:focus {
+  @apply outline-none;
+}
+
+.nice-select-arrow {
+  @apply pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700;
+}
+
 @tailwind utilities;
+
+@responsive {
+  .w-45p {
+    width: 45%;
+  }
+
+  .w-48p {
+    width: 48%;
+  }
+}

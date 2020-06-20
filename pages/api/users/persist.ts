@@ -31,7 +31,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<string>) => {
         const dbName = parse(process.env.DB_CONN_STR, () => { });
         db = client.db(dbName);
 
-        const collection: Collection<UserRecord> = db.collection("users");
+        const collection: Collection<UserRecord> = db.collection(process.env.USER_TYPE as string);
 
         // Add the user if they're not yet persisted.
         const results = await collection.find({
@@ -40,7 +40,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<string>) => {
 
         if (results.length) {
           if (results[0].provider === req.body.provider) {
-            sendApiResponse(200, { _id: results[0]._id }, res);
+            sendApiResponse(200, { _id: results[0]._id.toHexString() }, res);
           } else {
             sendApiResponse(422, { message: `Sorry an account for the email address ${req.body.email} already exists for the ${req.body.provider} sign in provider. Please log in with that account.` }, res);
           }
@@ -53,10 +53,9 @@ export default async (req: NextApiRequest, res: NextApiResponse<string>) => {
           };
 
           const doc = await collection.insertOne(data, { w: "majority" });
-          sendApiResponse(200, { _id: doc.insertedId }, res);
+          sendApiResponse(200, { _id: doc.insertedId.toHexString() }, res);
         }
       } catch (error) {
-        console.error(error);
         sendApiResponse(503, error, res);
         return;
       }

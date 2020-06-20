@@ -1,0 +1,22 @@
+[
+  {
+    "_id": { "$oid": "5eecfc2514cb674aa29a1761" },
+    "name": "Barn",
+    "imageUrl": "https://unicorn-zoo.vercel.app/images/barn.jpg"
+  },
+  {
+    "_id": { "$oid": "5eed024814cb674aa29a1762" },
+    "name": "West Pasture",
+    "imageUrl": "https://unicorn-zoo.vercel.app/images/west-pasture.jpg"
+  },
+  {
+    "_id": { "$oid": "5eed034614cb674aa29a1763" },
+    "name": "East Pasture",
+    "imageUrl": "https://unicorn-zoo.vercel.app/images/east-pasture.jpg"
+  },
+  {
+    "_id": { "$oid": "5eed042314cb674aa29a1764" },
+    "name": "On the Trails",
+    "imageUrl": "https://unicorn-zoo.vercel.app/images/trails.jpg"
+  }
+]

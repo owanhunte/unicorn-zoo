@@ -3,7 +3,7 @@ import { SignInResult } from "@pwabuilder/pwaauth/build/signin-result";
 import { SetterOrUpdater } from "recoil";
 import { toast } from "react-toastify";
 import localForage from "localforage";
-import { pwaAuthErrorToStr } from "@/utils/fns";
+import { pwaAuthErrorToStr, getApiEndpoint } from "@/utils/fns";
 import { UserCache, UserRecord } from "@/utils/types";
 
 const config = { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' } };
@@ -14,7 +14,7 @@ export const handleSignInCompleted = async (details: SignInResult, stateSetter: 
   } else {
     try {
       // Persist user data to the application cloud DB.
-      const response = await axios.post<UserRecord>("/api/user/persist-user", {
+      const response = await axios.post<{ _id: string }>(getApiEndpoint("persistUser"), {
         name: details.name,
         email: details.email,
         provider: details.provider,

@@ -101,7 +101,7 @@ const Header: React.FunctionComponent = () => {
               ></button>
             )}
             {isMenuOpen && (
-              <div className="absolute right-0 mt-2 w-56 bg-white rounded pt-3 pb-1 shadow-xl">
+              <div className="absolute right-0 mt-2 w-56 bg-white rounded pt-3 pb-1 shadow-xl z-50">
                 <div className="text-center leading-relaxed pb-4 border-b">
                   <div className="text-gray-800 text-sm font-semibold">
                     {user.data.name}
