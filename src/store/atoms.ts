@@ -6,17 +6,17 @@ export const userState = atom<UserCache | null | undefined>({
   default: undefined
 });
 
-export const loginInProcess = atom<boolean>({
-  key: "loginInProcess",
+export const isLoggingInState = atom<boolean>({
+  key: "isLoggingInState",
   default: false
 });
 
-export const locationHashTbl = atom<LocationHashTable | null>({
-  key: "locationHashTbl",
+export const locationsState = atom<LocationHashTable | null>({
+  key: "locationsState",
   default: null
 });
 
-export const unicornHashTbl = atom<UnicornHashTable | null>({
-  key: "unicornHashTbl",
+export const unicornsState = atom<UnicornHashTable | null>({
+  key: "unicornsState",
   default: null
 });

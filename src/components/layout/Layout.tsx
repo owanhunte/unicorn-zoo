@@ -7,7 +7,7 @@ import { SignInResult } from "@pwabuilder/pwaauth/build/signin-result";
 import {
   userState,
   handleSignInCompleted,
-  loginInProcess,
+  isLoggingInState,
 } from "@/store/index";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -49,7 +49,7 @@ const Layout: React.FunctionComponent<Props> = ({
 
   const [user, setUser] = useRecoilState(userState);
   const [isAuthenticating, setIsAuthenticating] = useRecoilState(
-    loginInProcess
+    isLoggingInState
   );
 
   const handleLogin = async (result: CustomEvent<SignInResult>) => {

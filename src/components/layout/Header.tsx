@@ -7,7 +7,7 @@ import {
   userState,
   handleSignInCompleted,
   logoutUser,
-  loginInProcess,
+  isLoggingInState,
 } from "@/store/index";
 import { IoMdPerson } from "react-icons/io";
 import styles from "@/layoutstyles/header.module.scss";
@@ -32,7 +32,7 @@ const Header: React.FunctionComponent = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [user, setUser] = useRecoilState(userState);
   const [isAuthenticating, setIsAuthenticating] = useRecoilState(
-    loginInProcess
+    isLoggingInState
   );
 
   const toggleUserMenu = (event: React.MouseEvent<HTMLElement>) => {

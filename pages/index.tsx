@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { useRecoilState } from "recoil";
 import { NextPage } from "next";
 import Layout from "@/components/layout/Layout";
-import { locationHashTbl, unicornHashTbl } from "@/store/index";
+import { locationsState, unicornsState } from "@/store/index";
 import { IoMdEye } from "react-icons/io";
 import Welcome from "@/components/aside/Welcome";
 import TopBar from "@/components/TopBar";
 
 const Home: NextPage = () => {
-  const [locations] = useRecoilState(locationHashTbl);
-  const [unicorns] = useRecoilState(unicornHashTbl);
+  const [locations] = useRecoilState(locationsState);
+  const [unicorns] = useRecoilState(unicornsState);
   const [selected, setSelected] = useState("");
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {

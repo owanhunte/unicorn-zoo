@@ -1,19 +1,18 @@
 import React, { useEffect } from "react";
 import { AppProps } from "next/app";
-import { ObjectId } from "mongodb";
 import localForage from "localforage";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import Loading from "./Loading";
 import { UserCache, UnicornHashTable, LocationHashTable } from "@/utils/types";
 import { isOnlyObject } from "@/utils/fns";
-import { userState, unicornHashTbl, locationHashTbl } from "@/store/index";
+import { userState, unicornsState, locationsState } from "@/store/index";
 import { getUnicorns } from "@/utils/data-fetchers/unicorns";
 import { getLocations } from "@/utils/data-fetchers/locations";
 
 export default function EntryPoint({ Component, pageProps }: AppProps) {
   const [user, setUser] = useRecoilState(userState);
-  const [, setLocationsData] = useRecoilState(locationHashTbl);
-  const [, setUnicornsData] = useRecoilState(unicornHashTbl);
+  const setLocations = useSetRecoilState(locationsState);
+  const setUnicorns = useSetRecoilState(unicornsState);
 
   useEffect(() => {
     (async () => {
@@ -67,8 +66,8 @@ export default function EntryPoint({ Component, pageProps }: AppProps) {
           {}
         );
 
-        setUnicornsData({ ...unicorns });
-        setLocationsData({ ...locations });
+        setUnicorns({ ...unicorns });
+        setLocations({ ...locations });
       } catch (error) {
         console.log("Error:", error);
         setUser(null);
