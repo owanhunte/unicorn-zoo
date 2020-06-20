@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { useRecoilValue } from "recoil";
 import { unicornsState, locationsState } from "@/store/index";
 
 type Props = {
   id: string;
-  actionHandler(ev: React.MouseEvent<HTMLElement>): void;
+  actionHandler(): void;
 };
 
 const DetailView: React.FC<Props> = ({ id, actionHandler }) => {

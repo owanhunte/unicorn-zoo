@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { unicornsState, locationsState } from "@/store/index";
 import DetailView from "./View";
 import Edit from "./Edit";
+import { UnicornHashTable, LocationHashTable } from "@/utils/types";
+import { toast } from "react-toastify";
 
 type Props = {
   id?: string;
@@ -11,8 +13,8 @@ type Props = {
 };
 
 const ViewEdit: React.FC<Props> = ({ id, showDetailView, showEditForm }) => {
-  const unicorns = useRecoilValue(unicornsState);
-  const locations = useRecoilValue(locationsState);
+  const [unicorns, setUnicorns] = useRecoilState(unicornsState);
+  const [locations, setLocations] = useRecoilState(locationsState);
   const [selected, setSelected] = useState(id ?? "");
   const [showView, setShowView] = useState(showDetailView ?? false);
   const [showEdit, setShowEdit] = useState(showEditForm ?? false);
@@ -24,13 +26,66 @@ const ViewEdit: React.FC<Props> = ({ id, showDetailView, showEditForm }) => {
     setShowView(s ? true : false);
   };
 
-  const switchToEditForm = (event: React.MouseEvent<HTMLElement>) => {
+  const switchToEditForm = () => {
     setShowView(false);
     setShowEdit(true);
   };
 
-  const moveUnicorn = async (event: React.MouseEvent<HTMLElement>) => {
-    // Do the necessary updates...
+  const moveUnicorn = async (newLocation: string) => {
+    if (unicorns && locations && newLocation !== unicorns[selected].location) {
+      // Update unicorn state.
+      setUnicorns((prev) => {
+        let replacement: UnicornHashTable = {
+          ...prev,
+        };
+
+        replacement[selected] = {
+          ...replacement[selected],
+          location: newLocation,
+        };
+
+        return replacement;
+      });
+
+      // Remove the unicorn from the current location and add to the new location.
+      let currentLocation = unicorns[selected].location;
+      setLocations((prev) => {
+        let replacement: LocationHashTable = {
+          ...prev,
+        };
+
+        replacement[currentLocation] = {
+          ...replacement[currentLocation],
+        };
+        replacement[currentLocation].unicornList = [
+          ...replacement[currentLocation].unicornList,
+        ];
+
+        replacement[newLocation] = {
+          ...replacement[newLocation],
+        };
+        replacement[newLocation].unicornList = [
+          ...replacement[newLocation].unicornList,
+        ];
+
+        replacement[currentLocation].unicornList.splice(
+          replacement[currentLocation].unicornList.indexOf(selected),
+          1
+        );
+
+        replacement[newLocation].unicornList.push(selected);
+        return replacement;
+      });
+
+      // Persist to the DB.
+
+      // Toast and switch back to details view.
+      toast.success(
+        `${unicorns[selected].name} is now in location: ${locations[newLocation].name}`
+      );
+      setShowEdit(false);
+      setShowView(true);
+    }
   };
 
   return (

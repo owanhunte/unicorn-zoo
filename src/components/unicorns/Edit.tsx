@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useRecoilValue } from "recoil";
+import { toast } from "react-toastify";
 import { unicornsState, locationsState } from "@/store/index";
 
 type Props = {
   id: string;
-  actionHandler(ev: React.MouseEvent<HTMLElement>): Promise<void>;
+  actionHandler(newLocation: string): Promise<void>;
 };
 
 const Edit: React.FC<Props> = ({ id, actionHandler }) => {
@@ -21,9 +22,15 @@ const Edit: React.FC<Props> = ({ id, actionHandler }) => {
   };
 
   const handleAction = async (event: React.MouseEvent<HTMLElement>) => {
-    setMovingUnicorn(true);
-    await actionHandler(event);
-    //setMovingUnicorn(false);
+    if (unicorns && locationSelected !== unicorns[id].location) {
+      setMovingUnicorn(true);
+      await actionHandler(locationSelected);
+      setMovingUnicorn(false);
+    } else if (unicorns && locations) {
+      toast.info(
+        `${unicorns[id].name} is already in location: ${locations[locationSelected].name}`
+      );
+    }
   };
 
   useEffect(() => {
