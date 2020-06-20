@@ -2,6 +2,10 @@
 
 > This Next.js web application, named _Unicorn Zoo_, was developed by me, [Owan Hunte](https://owanhunte.com), as part of my Code Fellows Instructor Technical Qualifying Interview.
 
+## Demo
+
+https://unicorn-zoo.vercel.app (you'll need to login with a Google account)
+
 ## Local Development
 
 **NOTE**: I prefer Yarn over NPM as my package manager of choice so this project uses Yarn.
