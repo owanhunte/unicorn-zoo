@@ -11,6 +11,7 @@ https://unicorn-zoo.vercel.app (you'll need to login with a Google account)
 The web app has been built using the following stack:
 
 - [React](https://reactjs.org) and of course the [Next.js](https://nextjs.org) framework
+- [TypeScript](https://www.typescriptlang.org)
 - [pwa-auth web component](https://github.com/pwa-builder/pwa-auth)
 - [Recoil](https://recoiljs.org) lib from [Facebook](https://opensource.facebook.com)
 - [Tailwind CSS](https://tailwindcss.com)
