@@ -15,7 +15,7 @@ The web app has been built using the following stack:
 - [pwa-auth web component](https://github.com/pwa-builder/pwa-auth)
 - [Recoil](https://recoiljs.org) lib from [Facebook](https://opensource.facebook.com)
 - [Tailwind CSS](https://tailwindcss.com)
-- [React-toastify](https://fkhadra.github.io/react-toastify) lib for an easy React Toast component
+- [React-toastify](https://fkhadra.github.io/react-toastify) lib for an easy-to-drop-in React Toast component
 - [MongoDB](https://www.mongodb.com)
 - _and more!_
 
