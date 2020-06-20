@@ -16,7 +16,7 @@ const DetailView: React.FC<Props> = ({ id, actionHandler }) => {
       {id && unicorns && (
         <div className="bg-teal-200 border mt-6 py-4 px-5 text-sm">
           <h4 className="mb-3 text-lg">
-            Here's <strong>{unicorns[id].name}</strong>'s details:
+            Here are <strong>{unicorns[id].name}</strong>'s details:
           </h4>
           <div className="flex items-center mb-2">
             <div className="w-2/5 font-semibold">Name:</div>
@@ -50,9 +50,8 @@ const DetailView: React.FC<Props> = ({ id, actionHandler }) => {
             <button
               className="shadow bg-blue-500 hover:bg-blue-600 focus:shadow-outline focus:outline-none text-white font-bold py-3 px-4 rounded w-full"
               onClick={actionHandler}
-              type="submit"
             >
-              Move {unicorns[id].name}
+              Change {unicorns[id].name}'s location
             </button>
           </div>
         </div>
