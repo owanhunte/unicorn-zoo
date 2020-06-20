@@ -8,7 +8,7 @@ https://unicorn-zoo.vercel.app (you'll need to login with a Google account)
 
 ## The TL;DR
 
-The web app has been built using the following stack:
+The web app has been built using the following stack (highlighting what I consider worthy of mention here):
 
 - [React](https://reactjs.org) and of course the [Next.js](https://nextjs.org) framework
 - [TypeScript](https://www.typescriptlang.org)
@@ -17,7 +17,6 @@ The web app has been built using the following stack:
 - [Tailwind CSS](https://tailwindcss.com)
 - [React-toastify](https://fkhadra.github.io/react-toastify) lib for an easy-to-drop-in React Toast component
 - [MongoDB](https://www.mongodb.com)
-- _and more!_
 
 ## Local Development
 
