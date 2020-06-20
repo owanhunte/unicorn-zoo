@@ -1,6 +1,6 @@
 # Unicorn Zoo Web Application
 
-> This web application, named _Unicorn Zoo_, was developed by me, [Owan Hunte](https://owanhunte.com), as part of my Code Fellows Instructor Technical Qualifying Interview.
+> This Next.js web application, named _Unicorn Zoo_, was developed by me, [Owan Hunte](https://owanhunte.com), as part of my Code Fellows Instructor Technical Qualifying Interview.
 
 ## Local Development
 
@@ -19,12 +19,17 @@
 
    ```
    NEXT_PUBLIC_APP_BUILD_TARGET=local
-   NEXT_PUBLIC_GOOGLE_KEY="<a-google-key>"
+   NEXT_PUBLIC_GOOGLE_KEY="a-google-key"
+   DB_CONN_STR="your-mongodb-connection-string"
    ```
 
    The `NEXT_PUBLIC_APP_BUILD_TARGET` entry should be set to a value other than production, i.e. _local_ or _development_.
 
-   To keep the authentication side of things agile I'm using the [pwa-auth](https://github.com/pwa-builder/pwa-auth) web component. Specifically the app allows anyone to log in to it using their Google account. The `NEXT_PUBLIC_GOOGLE_KEY` entry therefore needs to be set to a valid Google key. Details on creating a Google key can be found [here](https://github.com/pwa-builder/pwa-auth/blob/master/creating-google-key.md).
+   To keep the authentication side of things agile the web app uses the [pwa-auth](https://github.com/pwa-builder/pwa-auth) web component. Specifically it allows anyone to log in to it using their Google account. The `NEXT_PUBLIC_GOOGLE_KEY` entry therefore needs to be set to a valid Google key. Details on creating a Google key can be found [here](https://github.com/pwa-builder/pwa-auth/blob/master/creating-google-key.md).
+
+   I'm using MongoDB to persist data storage. I recommend using any MongoDB version from 4.0.x up. Set _DB_CONN_STR_ to a valid connection string for your MongoDB instance.
+
+   There are two collections, **locations** and **unicorns** that the application needs to have some initial data in so it can function properly. I've included 2 JSON files in the `db-init/json` folder, which contain a complete initial dataset you can start with.
 
 5. Start the Next.js server in development mode, specifiying the port to run the NodeJS process on. For example, if you want to run the application on port 3002 your command would be:
 
