@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { unicornsState, locationsState } from "@/store/index";
 import DetailView from "./View";
+import Edit from "./Edit";
 
 type Props = {
   id?: string;
@@ -19,12 +20,17 @@ const ViewEdit: React.FC<Props> = ({ id, showDetailView, showEditForm }) => {
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     const s = event.target.value as string;
     setSelected(s);
+    setShowEdit(false);
     setShowView(s ? true : false);
   };
 
-  const switchToEditForm = async (event: React.MouseEvent<HTMLElement>) => {
+  const switchToEditForm = (event: React.MouseEvent<HTMLElement>) => {
     setShowView(false);
     setShowEdit(true);
+  };
+
+  const moveUnicorn = async (event: React.MouseEvent<HTMLElement>) => {
+    // Do the necessary updates...
   };
 
   return (
@@ -59,6 +65,8 @@ const ViewEdit: React.FC<Props> = ({ id, showDetailView, showEditForm }) => {
       {showView && (
         <DetailView id={selected} actionHandler={switchToEditForm} />
       )}
+
+      {showEdit && <Edit id={selected} actionHandler={moveUnicorn} />}
     </React.Fragment>
   );
 };
