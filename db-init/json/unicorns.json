@@ -37,14 +37,14 @@
   {
     "_id": { "$oid": "5eed7e0080fcd4c89ddd503f" },
     "name": "Nightcrawler",
-    "colour": "dark gray",
+    "colour": "darkgray",
     "favFood": "Fish",
     "location": "5eecfc2514cb674aa29a1761"
   },
   {
     "_id": { "$oid": "5eed7e6780fcd4c89ddd5040" },
     "name": "Black Widow",
-    "colour": "dark blue",
+    "colour": "navy",
     "favFood": "Pancakes",
     "location": "5eecfc2514cb674aa29a1761"
   },
@@ -79,7 +79,7 @@
   {
     "_id": { "$oid": "5eed803180fcd4c89ddd5045" },
     "name": "Susan",
-    "colour": "peach",
+    "colour": "peachpuff",
     "favFood": "Fruit Salad",
     "location": "5eecfc2514cb674aa29a1761"
   }
