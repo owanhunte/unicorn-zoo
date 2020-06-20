@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 import { locationsCountState, unicornsCountState } from "../store";
 
 type Props = {
-  title?: string;
+  title: string;
 };
 
 const TopBar: React.FC<Props> = ({ title }) => {
