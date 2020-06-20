@@ -6,6 +6,18 @@
 
 https://unicorn-zoo.vercel.app (you'll need to login with a Google account)
 
+## The TL;DR
+
+The web app has been built using the following stack:
+
+- [React](https://reactjs.org) and of course the [Next.js](https://nextjs.org) framework
+- [pwa-auth web component](https://github.com/pwa-builder/pwa-auth)
+- [Recoil](https://recoiljs.org) lib from [Facebook](https://opensource.facebook.com)
+- [Tailwind CSS](https://tailwindcss.com)
+- [React-toastify](https://fkhadra.github.io/react-toastify) lib for an easy React Toast component
+- [MongoDB](https://www.mongodb.com)
+- _and more!_
+
 ## Local Development
 
 **NOTE**: I prefer Yarn over NPM as my package manager of choice so this project uses Yarn.
