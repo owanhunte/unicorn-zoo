@@ -6,9 +6,10 @@ import { unicornsState, locationsState } from "@/store/index";
 type Props = {
   id: string;
   actionHandler(newLocation: string): Promise<void>;
+  cancelHandler(ev: React.MouseEvent<HTMLElement>): void;
 };
 
-const Edit: React.FC<Props> = ({ id, actionHandler }) => {
+const Edit: React.FC<Props> = ({ id, actionHandler, cancelHandler }) => {
   const unicorns = useRecoilValue(unicornsState);
   const locations = useRecoilValue(locationsState);
   const [locationSelected, setLocationSelected] = useState("");
@@ -76,9 +77,9 @@ const Edit: React.FC<Props> = ({ id, actionHandler }) => {
               </svg>
             </div>
           </div>
-          <div className="pt-3">
+          <div className="pt-2">
             <button
-              className="shadow bg-blue-500 hover:bg-blue-600 focus:shadow-outline focus:outline-none text-white font-bold py-3 px-4 rounded w-full"
+              className="shadow bg-blue-500 hover:bg-blue-600 focus:outline-none text-white font-bold py-3 px-4 rounded w-full"
               onClick={handleAction}
               disabled={movingUnicorn}
             >
@@ -92,6 +93,14 @@ const Edit: React.FC<Props> = ({ id, actionHandler }) => {
               ) : (
                 <span>Move {unicorns[id].name}</span>
               )}
+            </button>
+          </div>
+          <div className="pt-3">
+            <button
+              className="shadow bg-gray-300 hover:bg-white focus:outline-none text-blue-900 hover:text-gray-800 font-semibold py-2 px-4 rounded w-full"
+              onClick={cancelHandler}
+            >
+              Cancel
             </button>
           </div>
         </div>

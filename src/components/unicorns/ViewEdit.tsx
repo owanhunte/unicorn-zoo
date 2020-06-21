@@ -32,6 +32,11 @@ const ViewEdit: React.FC<Props> = ({ id, showDetailView, showEditForm }) => {
     setShowEdit(true);
   };
 
+  const cancelEdit = (event: React.MouseEvent<HTMLElement>) => {
+    setShowEdit(false);
+    setShowView(true);
+  };
+
   const moveUnicorn = async (newLocation: string) => {
     if (unicorns && locations && newLocation !== unicorns[selected].location) {
       // Update unicorn state.
@@ -123,7 +128,13 @@ const ViewEdit: React.FC<Props> = ({ id, showDetailView, showEditForm }) => {
         <DetailView id={selected} actionHandler={switchToEditForm} />
       )}
 
-      {showEdit && <Edit id={selected} actionHandler={moveUnicorn} />}
+      {showEdit && (
+        <Edit
+          id={selected}
+          actionHandler={moveUnicorn}
+          cancelHandler={cancelEdit}
+        />
+      )}
     </React.Fragment>
   );
 };
