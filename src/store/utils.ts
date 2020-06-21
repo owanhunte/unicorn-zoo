@@ -4,7 +4,7 @@ import { SetterOrUpdater } from "recoil";
 import { toast } from "react-toastify";
 import localForage from "localforage";
 import { pwaAuthErrorToStr, getApiEndpoint } from "@/utils/fns";
-import { UserCache, UserRecord } from "@/utils/types";
+import { UserCache } from "@/utils/types";
 
 const config = { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' } };
 

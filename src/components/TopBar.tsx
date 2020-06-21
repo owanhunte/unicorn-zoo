@@ -16,11 +16,11 @@ const TopBar: React.FC<Props> = ({ title }) => {
         <span className="text-lg text-gray-800 sm:mr-6">{title}</span>
         <div className="hidden sm:inline-block sm:mr-4 text-xs font-semibold uppercase">
           <span className="text-gray-600 mr-1">Locations:</span>
-          {locationsCount}
+          {locationsCount || "..."}
         </div>
         <div className="hidden sm:inline-block text-xs font-semibold uppercase">
           <span className="text-gray-600 mr-1">Unicorns:</span>
-          {unicornsCount}
+          {unicornsCount || "..."}
         </div>
       </div>
     </div>
