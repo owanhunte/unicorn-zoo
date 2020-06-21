@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
+import { toast } from "react-toastify";
 import { unicornsState, locationsState } from "@/store/index";
+import { UnicornHashTable, LocationHashTable } from "@/utils/types";
+import { updateUnicorn } from "@/utils/data-modifiers/unicorns";
 import DetailView from "./View";
 import Edit from "./Edit";
-import { UnicornHashTable, LocationHashTable } from "@/utils/types";
-import { toast } from "react-toastify";
 
 type Props = {
   id?: string;
@@ -78,6 +79,7 @@ const ViewEdit: React.FC<Props> = ({ id, showDetailView, showEditForm }) => {
       });
 
       // Persist to the DB.
+      updateUnicorn(selected, newLocation);
 
       // Toast and switch back to details view.
       toast.success(

@@ -25,7 +25,6 @@ const Edit: React.FC<Props> = ({ id, actionHandler }) => {
     if (unicorns && locationSelected !== unicorns[id].location) {
       setMovingUnicorn(true);
       await actionHandler(locationSelected);
-      setMovingUnicorn(false);
     } else if (unicorns && locations) {
       toast.info(
         `${unicorns[id].name} is already in location: ${locations[locationSelected].name}`
@@ -34,10 +33,16 @@ const Edit: React.FC<Props> = ({ id, actionHandler }) => {
   };
 
   useEffect(() => {
-    if (unicorns && id) {
-      setLocationSelected(unicorns[id].location);
+    let mounted = true;
+    if (unicorns) {
+      if (mounted) {
+        setLocationSelected(unicorns[id].location);
+      }
     }
-  }, [id, unicorns]);
+    return () => {
+      mounted = false;
+    };
+  }, [id]);
 
   return (
     <React.Fragment>

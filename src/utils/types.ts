@@ -37,3 +37,8 @@ export type LocationHashTable = {
     unicornList: string[]
   };
 };
+
+export type UnicornUpdateResultType = {
+  matchedCount: number;
+  modifiedCount: number
+};

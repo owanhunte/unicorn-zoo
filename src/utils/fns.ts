@@ -28,6 +28,9 @@ export const getApiEndpoint = (which: string) => {
     case "allUnicorns":
       endpoint = "/api/unicorns";
       break;
+    case "patchUnicorn":
+      endpoint = "/api/unicorns/[id]";
+      break;
     case "persistUser":
       endpoint = "/api/users/persist";
       break;
