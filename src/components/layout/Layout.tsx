@@ -36,7 +36,7 @@ type Props = {
   children: React.ReactElement | React.ReactElement[];
 };
 
-const Layout: React.FunctionComponent<Props> = ({
+const Layout: React.FC<Props> = ({
   title,
   description,
   isGuestPage,

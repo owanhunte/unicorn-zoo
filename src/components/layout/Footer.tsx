@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-const Footer: React.FunctionComponent = () => {
+const Footer: React.FC = () => {
   return (
     <footer className="flex-initial flex-wrap border-t bg-white text-center">
       <div className="mx-auto pb-4 w-11/12 lg:max-w-screen-lg pt-5 text-xs text-gray-600">

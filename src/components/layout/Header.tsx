@@ -28,7 +28,7 @@ const PwaAuthComponent: ComponentType<PwaAuthProps> = dynamic(
   }
 );
 
-const Header: React.FunctionComponent = () => {
+const Header: React.FC = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [user, setUser] = useRecoilState(userState);
   const [isAuthenticating, setIsAuthenticating] = useRecoilState(
