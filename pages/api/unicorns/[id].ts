@@ -57,15 +57,21 @@ export default async (req: NextApiRequest, res: NextApiResponse<UnicornUpdateRes
             }
             const pusher = new Pusher(options);
 
-            pusher.trigger(
-              process.env.NEXT_PUBLIC_PUSHER_CHANNEL_UNICORNS as string,
-              process.env.NEXT_PUBLIC_PUSHER_EVENT_UNICORN_MOVED as string,
-              {
-                unicorn_id: id,
-                location_id: req.body.location
-              },
-              req.body.socket_id || undefined
-            );
+            await new Promise((resolve, reject) => {
+              pusher.trigger(
+                process.env.NEXT_PUBLIC_PUSHER_CHANNEL_UNICORNS as string,
+                process.env.NEXT_PUBLIC_PUSHER_EVENT_UNICORN_MOVED as string,
+                {
+                  unicorn_id: id,
+                  location_id: req.body.location
+                },
+                req.body.socket_id || undefined,
+                err => {
+                  if (err) return reject(err);
+                  resolve();
+                }
+              );
+            });
 
             // Send success response back to route caller.
             sendApiResponse(200, { matchedCount: r.matchedCount, modifiedCount: r.modifiedCount }, res);
