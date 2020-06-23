@@ -16,6 +16,7 @@ The web app has been built using the following stack (highlighting what I consid
 - [Recoil](https://recoiljs.org) lib from [Facebook](https://opensource.facebook.com)
 - [Tailwind CSS](https://tailwindcss.com)
 - [React-toastify](https://fkhadra.github.io/react-toastify) lib for an easy-to-drop-in React Toast component
+- [Pusher](http://pusher.com) to easily implement real-time updates in the app
 - [MongoDB](https://www.mongodb.com)
 
 ## Local Development
@@ -37,6 +38,10 @@ The web app has been built using the following stack (highlighting what I consid
    NEXT_PUBLIC_APP_BUILD_TARGET=local
    NEXT_PUBLIC_GOOGLE_KEY="a-google-key"
    DB_CONN_STR="your-mongodb-connection-string"
+   PUSHER_APP_ID=your-pusher-app-id
+   NEXT_PUBLIC_PUSHER_APP_KEY=your-pusher-app-key
+   PUSHER_APP_SECRET=your-pusher-app-secret
+   NEXT_PUBLIC_PUSHER_APP_CLUSTER=your-pusher-app-cluster
    ```
 
    The `NEXT_PUBLIC_APP_BUILD_TARGET` entry should be set to a value other than production, i.e. _local_ or _development_.
@@ -46,6 +51,8 @@ The web app has been built using the following stack (highlighting what I consid
    I'm using MongoDB to persist data storage. I recommend using any MongoDB version from 4.0.x up. Set _DB_CONN_STR_ to a valid connection string for your MongoDB instance.
 
    There are two collections, **locations** and **unicorns** that the application needs to have some initial data in so it can function properly. I've included 2 JSON files in the `db-init/json` folder, which contain a complete initial dataset you can start with.
+
+   Real-time updates are implemented in the web app where when any user moves a unicorn, any other user that is currently logged in to the app will see that update automatically reflected on their end. I'm making use of the Pusher Node.js and client-side JS libraries to implement this feature so you will need to [create your own Pusher account](https://dashboard.pusher.com/accounts/sign_up) and create a Pusher app that the web app can use to publish/subscribe to real-time events. After doing this grab the App ID, key, secret and cluster name from the [Pusher dashboard](https://dashboard.pusher.com/apps) and add them to your **.env.local** file as shown above.
 
 5. Start the Next.js server in development mode, specifiying the port to run the NodeJS process on. For example, if you want to run the application on port 3002 your command would be:
 

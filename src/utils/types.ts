@@ -42,3 +42,8 @@ export type UnicornUpdateResultType = {
   matchedCount: number;
   modifiedCount: number
 };
+
+export type UnicornWithLocation = {
+  unicorn_id: string;
+  location_id: string;
+}

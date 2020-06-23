@@ -1,13 +1,19 @@
 import React, { ComponentType, useState } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { toast } from "react-toastify";
 import { SignInResult } from "@pwabuilder/pwaauth/build/signin-result";
+import { setupRealTimeEventsHandler } from "@/utils/fns";
 import { useRecoilState } from "recoil";
 import {
   userState,
   handleSignInCompleted,
   logoutUser,
   isLoggingInState,
+  socketIdState,
+  unicornsState,
+  locationsState,
+  moveUnicornInState,
 } from "@/store/index";
 import { IoMdPerson } from "react-icons/io";
 import styles from "@/layoutstyles/header.module.scss";
@@ -29,6 +35,9 @@ const PwaAuthComponent: ComponentType<PwaAuthProps> = dynamic(
 );
 
 const Header: React.FC = () => {
+  const [socketId, setSocketId] = useRecoilState(socketIdState);
+  const [unicorns, setUnicorns] = useRecoilState(unicornsState);
+  const [locations, setLocations] = useRecoilState(locationsState);
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [user, setUser] = useRecoilState(userState);
   const [isAuthenticating, setIsAuthenticating] = useRecoilState(
@@ -49,10 +58,31 @@ const Header: React.FC = () => {
     setMenuOpen(false);
   };
 
+  const syncUnicornMoved = (unicornId: string, newLocatonId: string) => {
+    if (
+      unicorns &&
+      locations &&
+      newLocatonId !== unicorns[unicornId].location
+    ) {
+      moveUnicornInState(
+        unicornId,
+        newLocatonId,
+        unicorns,
+        setUnicorns,
+        setLocations
+      );
+
+      toast.success(
+        `Another user just moved ${unicorns[unicornId].name} to location: ${locations[newLocatonId].name}`
+      );
+    }
+  };
+
   const handleLogin = async (result: CustomEvent<SignInResult>) => {
     setIsAuthenticating(true);
     await handleSignInCompleted((result as unknown) as SignInResult, setUser);
     setIsAuthenticating(false);
+    setupRealTimeEventsHandler(socketId, setSocketId, syncUnicornMoved);
   };
 
   const handleLogout = async (event: React.MouseEvent<HTMLElement>) => {

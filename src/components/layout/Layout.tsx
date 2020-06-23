@@ -2,13 +2,18 @@ import React, { ComponentType } from "react";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import { useRecoilState } from "recoil";
-import { ToastContainer, Slide } from "react-toastify";
+import { ToastContainer, Slide, toast } from "react-toastify";
 import { SignInResult } from "@pwabuilder/pwaauth/build/signin-result";
 import {
   userState,
   handleSignInCompleted,
   isLoggingInState,
+  socketIdState,
+  unicornsState,
+  locationsState,
+  moveUnicornInState,
 } from "@/store/index";
+import { setupRealTimeEventsHandler } from "@/utils/fns";
 import Header from "./Header";
 import Footer from "./Footer";
 import Loading from "../Loading";
@@ -47,15 +52,39 @@ const Layout: React.FC<Props> = ({
     title ?? `${process.env.NEXT_PUBLIC_APP_NAME} — Where the Unicorns are at`;
   const pageDescription = description ?? process.env.NEXT_PUBLIC_APP_DESC;
 
+  const [socketId, setSocketId] = useRecoilState(socketIdState);
+  const [unicorns, setUnicorns] = useRecoilState(unicornsState);
+  const [locations, setLocations] = useRecoilState(locationsState);
   const [user, setUser] = useRecoilState(userState);
   const [isAuthenticating, setIsAuthenticating] = useRecoilState(
     isLoggingInState
   );
 
+  const syncUnicornMoved = (unicornId: string, newLocatonId: string) => {
+    if (
+      unicorns &&
+      locations &&
+      newLocatonId !== unicorns[unicornId].location
+    ) {
+      moveUnicornInState(
+        unicornId,
+        newLocatonId,
+        unicorns,
+        setUnicorns,
+        setLocations
+      );
+
+      toast.success(
+        `Another user just moved ${unicorns[unicornId].name} to location: ${locations[newLocatonId].name}`
+      );
+    }
+  };
+
   const handleLogin = async (result: CustomEvent<SignInResult>) => {
     setIsAuthenticating(true);
     await handleSignInCompleted((result as unknown) as SignInResult, setUser);
     setIsAuthenticating(false);
+    setupRealTimeEventsHandler(socketId, setSocketId, syncUnicornMoved);
   };
 
   return (
@@ -135,7 +164,7 @@ const Layout: React.FC<Props> = ({
           )}
         </main>
         <Footer />
-        <ToastContainer newestOnTop autoClose={2500} transition={Slide} />
+        <ToastContainer newestOnTop autoClose={3000} transition={Slide} />
       </div>
     </React.Fragment>
   );

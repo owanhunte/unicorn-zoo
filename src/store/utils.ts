@@ -4,7 +4,7 @@ import { SetterOrUpdater } from "recoil";
 import { toast } from "react-toastify";
 import localForage from "localforage";
 import { pwaAuthErrorToStr, getApiEndpoint } from "@/utils/fns";
-import { UserCache } from "@/utils/types";
+import { UserCache, UnicornHashTable, LocationHashTable } from "@/utils/types";
 
 const config = { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' } };
 
@@ -48,4 +48,56 @@ export const logoutUser = async (stateSetter: SetterOrUpdater<UserCache | null |
   } catch (error) {
     console.error(error);
   }
+}
+
+export const moveUnicornInState = (
+  unicornId: string,
+  newLocatonId: string,
+  unicorns: UnicornHashTable,
+  unicornsStateSetter: SetterOrUpdater<UnicornHashTable | null>,
+  locationsStateSetter: SetterOrUpdater<LocationHashTable | null>
+) => {
+  // Update unicorn state.
+  unicornsStateSetter((prev) => {
+    let replacement: UnicornHashTable = {
+      ...prev,
+    };
+
+    replacement[unicornId] = {
+      ...replacement[unicornId],
+      location: newLocatonId,
+    };
+
+    return replacement;
+  });
+
+  // Remove the unicorn from the current location and add to the new location.
+  let currentLocation = unicorns[unicornId].location;
+  locationsStateSetter((prev) => {
+    let replacement: LocationHashTable = {
+      ...prev,
+    };
+
+    replacement[currentLocation] = {
+      ...replacement[currentLocation],
+    };
+    replacement[currentLocation].unicornList = [
+      ...replacement[currentLocation].unicornList,
+    ];
+
+    replacement[newLocatonId] = {
+      ...replacement[newLocatonId],
+    };
+    replacement[newLocatonId].unicornList = [
+      ...replacement[newLocatonId].unicornList,
+    ];
+
+    replacement[currentLocation].unicornList.splice(
+      replacement[currentLocation].unicornList.indexOf(unicornId),
+      1
+    );
+
+    replacement[newLocatonId].unicornList.push(unicornId);
+    return replacement;
+  });
 }

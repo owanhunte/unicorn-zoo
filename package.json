@@ -29,6 +29,8 @@
     "mongodb": "^3.5.9",
     "mongodb-core": "^3.2.7",
     "next": "^9.4.4",
+    "pusher": "^3.0.1",
+    "pusher-js": "^6.0.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-icons": "^3.10.0",

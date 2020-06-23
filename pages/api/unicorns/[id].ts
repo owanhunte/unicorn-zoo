@@ -4,11 +4,11 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { dbConnect, sendApiResponse } from "@/utils/server-fns";
 import { MongoClient, Db, Collection, ObjectId } from "mongodb";
 import { Unicorn, LocationRecord, UnicornUpdateResultType } from "@/utils/types";
+import Pusher from "pusher";
 
 /*
- * Typically post/update/patch/delete routes require authentication as they are
- * typically user/role/permissions restricted. However, in the case of this web app,
- * any user can move around the unicorns so access to this API route is unrestricted.
+ * TODO: Add authentication check in this API route. The user making the request to this route
+ * should be a logged in user.
  */
 export default async (req: NextApiRequest, res: NextApiResponse<UnicornUpdateResultType>) => {
   if (req.method && (req.method.toLowerCase() === "patch")) {
@@ -41,6 +41,27 @@ export default async (req: NextApiRequest, res: NextApiResponse<UnicornUpdateRes
             sendApiResponse(422, { message: `Invalid Location ID: ${req.body.location}` }, res);
           } else {
             const r = await unicornCol.updateOne({ _id: uoId }, { $set: { location: req.body.location } });
+
+            // Unicorn moved, publish a 'unicorn-moved' event to the unicorns channel.
+            const pusher = new Pusher({
+              appId: process.env.PUSHER_APP_ID as string,
+              key: process.env.NEXT_PUBLIC_PUSHER_APP_KEY as string,
+              secret: process.env.PUSHER_APP_SECRET as string,
+              cluster: process.env.NEXT_PUBLIC_PUSHER_APP_CLUSTER as string,
+              encrypted: true
+            });
+
+            pusher.trigger(
+              process.env.NEXT_PUBLIC_PUSHER_CHANNEL_UNICORNS as string,
+              process.env.NEXT_PUBLIC_PUSHER_EVENT_UNICORN_MOVED as string,
+              {
+                unicorn_id: id,
+                location_id: req.body.location
+              },
+              req.body.socket_id || undefined
+            );
+
+            // Send success response back to route caller.
             sendApiResponse(200, { matchedCount: r.matchedCount, modifiedCount: r.modifiedCount }, res);
           }
         }

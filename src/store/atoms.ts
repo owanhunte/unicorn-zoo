@@ -20,3 +20,8 @@ export const unicornsState = atom<UnicornHashTable | null>({
   key: "unicornsState",
   default: null
 });
+
+export const socketIdState = atom<string>({
+  key: "socketIdState",
+  default: ""
+});

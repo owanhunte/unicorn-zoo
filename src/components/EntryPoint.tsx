@@ -1,18 +1,46 @@
 import React, { useEffect } from "react";
 import { AppProps } from "next/app";
 import localForage from "localforage";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
+import { toast } from "react-toastify";
 import Loading from "./Loading";
 import { UserCache, UnicornHashTable, LocationHashTable } from "@/utils/types";
-import { isOnlyObject } from "@/utils/fns";
-import { userState, unicornsState, locationsState } from "@/store/index";
+import { isOnlyObject, setupRealTimeEventsHandler } from "@/utils/fns";
+import {
+  userState,
+  unicornsState,
+  locationsState,
+  socketIdState,
+  moveUnicornInState,
+} from "@/store/index";
 import { getUnicorns } from "@/utils/data-fetchers/unicorns";
 import { getLocations } from "@/utils/data-fetchers/locations";
 
 export default function EntryPoint({ Component, pageProps }: AppProps) {
   const [user, setUser] = useRecoilState(userState);
-  const setLocations = useSetRecoilState(locationsState);
-  const setUnicorns = useSetRecoilState(unicornsState);
+  const [socketId, setSocketId] = useRecoilState(socketIdState);
+  const [unicorns, setUnicorns] = useRecoilState(unicornsState);
+  const [locations, setLocations] = useRecoilState(locationsState);
+
+  const syncUnicornMoved = (unicornId: string, newLocatonId: string) => {
+    if (
+      unicorns &&
+      locations &&
+      newLocatonId !== unicorns[unicornId].location
+    ) {
+      moveUnicornInState(
+        unicornId,
+        newLocatonId,
+        unicorns,
+        setUnicorns,
+        setLocations
+      );
+
+      toast.success(
+        `Another user just moved ${unicorns[unicornId].name} to location: ${locations[newLocatonId].name}`
+      );
+    }
+  };
 
   useEffect(() => {
     (async () => {
@@ -27,6 +55,7 @@ export default function EntryPoint({ Component, pageProps }: AppProps) {
             value.data.accessTokenExpiration > now
           ) {
             setUser({ ...value });
+            setupRealTimeEventsHandler(socketId, setSocketId, syncUnicornMoved);
           } else {
             setUser(null);
 

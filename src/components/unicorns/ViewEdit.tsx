@@ -1,7 +1,12 @@
 import React, { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { toast } from "react-toastify";
-import { unicornsState, locationsState } from "@/store/index";
+import {
+  unicornsState,
+  locationsState,
+  socketIdState,
+  moveUnicornInState,
+} from "@/store/index";
 import { UnicornHashTable, LocationHashTable } from "@/utils/types";
 import { updateUnicorn } from "@/utils/data-modifiers/unicorns";
 import DetailView from "./View";
@@ -14,6 +19,7 @@ type Props = {
 };
 
 const ViewEdit: React.FC<Props> = ({ id, showDetailView, showEditForm }) => {
+  const socketId = useRecoilValue(socketIdState);
   const [unicorns, setUnicorns] = useRecoilState(unicornsState);
   const [locations, setLocations] = useRecoilState(locationsState);
   const [selected, setSelected] = useState(id ?? "");
@@ -39,52 +45,16 @@ const ViewEdit: React.FC<Props> = ({ id, showDetailView, showEditForm }) => {
 
   const moveUnicorn = async (newLocation: string) => {
     if (unicorns && locations && newLocation !== unicorns[selected].location) {
-      // Update unicorn state.
-      setUnicorns((prev) => {
-        let replacement: UnicornHashTable = {
-          ...prev,
-        };
-
-        replacement[selected] = {
-          ...replacement[selected],
-          location: newLocation,
-        };
-
-        return replacement;
-      });
-
-      // Remove the unicorn from the current location and add to the new location.
-      let currentLocation = unicorns[selected].location;
-      setLocations((prev) => {
-        let replacement: LocationHashTable = {
-          ...prev,
-        };
-
-        replacement[currentLocation] = {
-          ...replacement[currentLocation],
-        };
-        replacement[currentLocation].unicornList = [
-          ...replacement[currentLocation].unicornList,
-        ];
-
-        replacement[newLocation] = {
-          ...replacement[newLocation],
-        };
-        replacement[newLocation].unicornList = [
-          ...replacement[newLocation].unicornList,
-        ];
-
-        replacement[currentLocation].unicornList.splice(
-          replacement[currentLocation].unicornList.indexOf(selected),
-          1
-        );
-
-        replacement[newLocation].unicornList.push(selected);
-        return replacement;
-      });
+      moveUnicornInState(
+        selected,
+        newLocation,
+        unicorns,
+        setUnicorns,
+        setLocations
+      );
 
       // Persist to the DB.
-      updateUnicorn(selected, newLocation);
+      updateUnicorn(selected, newLocation, socketId);
 
       // Toast and switch back to details view.
       toast.success(
