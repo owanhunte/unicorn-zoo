@@ -43,13 +43,19 @@ export default async (req: NextApiRequest, res: NextApiResponse<UnicornUpdateRes
             const r = await unicornCol.updateOne({ _id: uoId }, { $set: { location: req.body.location } });
 
             // Unicorn moved, publish a 'unicorn-moved' event to the unicorns channel.
-            const pusher = new Pusher({
+            let options: Pusher.Options = {
               appId: process.env.PUSHER_APP_ID as string,
               key: process.env.NEXT_PUBLIC_PUSHER_APP_KEY as string,
               secret: process.env.PUSHER_APP_SECRET as string,
               cluster: process.env.NEXT_PUBLIC_PUSHER_APP_CLUSTER as string,
-              encrypted: true
-            });
+            };
+
+            if (process.env.NEXT_PUBLIC_APP_BUILD_TARGET === "production") {
+              options.useTLS = true;
+            } else {
+              options.encrypted = true;
+            }
+            const pusher = new Pusher(options);
 
             pusher.trigger(
               process.env.NEXT_PUBLIC_PUSHER_CHANNEL_UNICORNS as string,
